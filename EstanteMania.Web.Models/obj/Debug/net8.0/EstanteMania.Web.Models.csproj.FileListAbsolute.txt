@@ -1,0 +1,12 @@
+C:\Users\edmyl\source\repos\EstanteMania.Web.Models\bin\Debug\net8.0\EstanteMania.Web.Models.deps.json
+C:\Users\edmyl\source\repos\EstanteMania.Web.Models\bin\Debug\net8.0\EstanteMania.Web.Models.dll
+C:\Users\edmyl\source\repos\EstanteMania.Web.Models\bin\Debug\net8.0\EstanteMania.Web.Models.pdb
+C:\Users\edmyl\source\repos\EstanteMania.Web.Models\obj\Debug\net8.0\EstanteMania.Web.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\edmyl\source\repos\EstanteMania.Web.Models\obj\Debug\net8.0\EstanteMania.Web.Models.AssemblyInfoInputs.cache
+C:\Users\edmyl\source\repos\EstanteMania.Web.Models\obj\Debug\net8.0\EstanteMania.Web.Models.AssemblyInfo.cs
+C:\Users\edmyl\source\repos\EstanteMania.Web.Models\obj\Debug\net8.0\EstanteMania.Web.Models.csproj.CoreCompileInputs.cache
+C:\Users\edmyl\source\repos\EstanteMania.Web.Models\obj\Debug\net8.0\EstanteMania.Web.Models.sourcelink.json
+C:\Users\edmyl\source\repos\EstanteMania.Web.Models\obj\Debug\net8.0\EstanteMania.Web.Models.dll
+C:\Users\edmyl\source\repos\EstanteMania.Web.Models\obj\Debug\net8.0\refint\EstanteMania.Web.Models.dll
+C:\Users\edmyl\source\repos\EstanteMania.Web.Models\obj\Debug\net8.0\EstanteMania.Web.Models.pdb
+C:\Users\edmyl\source\repos\EstanteMania.Web.Models\obj\Debug\net8.0\ref\EstanteMania.Web.Models.dll

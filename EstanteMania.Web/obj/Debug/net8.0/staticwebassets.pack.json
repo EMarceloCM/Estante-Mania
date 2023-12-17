@@ -1,0 +1,81 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\edmyl\\source\\repos\\EstanteMania.Web\\bin\\Debug\\net8.0\\wwwroot\\_framework\\blazor.webassembly.js",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js"
+    },
+    {
+      "Id": "C:\\Users\\edmyl\\source\\repos\\EstanteMania.Web\\obj\\Debug\\net8.0\\compressed\\73uisg8d86.gz",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js.gz"
+    },
+    {
+      "Id": "C:\\Users\\edmyl\\source\\repos\\EstanteMania.Web\\obj\\Debug\\net8.0\\scopedcss\\bundle\\EstanteMania.Web.styles.css",
+      "PackagePath": "staticwebassets\\EstanteMania.Web.styles.css"
+    },
+    {
+      "Id": "C:\\Users\\edmyl\\source\\repos\\EstanteMania.Web\\wwwroot\\Imagens\\procurando.gif",
+      "PackagePath": "staticwebassets\\Imagens\\procurando.gif"
+    },
+    {
+      "Id": "C:\\Users\\edmyl\\source\\repos\\EstanteMania.Web\\wwwroot\\Imagens\\valeu.gif",
+      "PackagePath": "staticwebassets\\Imagens\\valeu.gif"
+    },
+    {
+      "Id": "C:\\Users\\edmyl\\source\\repos\\EstanteMania.Web\\wwwroot\\Js\\ShopCartFunctions.js",
+      "PackagePath": "staticwebassets\\Js\\ShopCartFunctions.js"
+    },
+    {
+      "Id": "C:\\Users\\edmyl\\source\\repos\\EstanteMania.Web\\wwwroot\\Spinner-2.gif",
+      "PackagePath": "staticwebassets\\Spinner-2.gif"
+    },
+    {
+      "Id": "C:\\Users\\edmyl\\source\\repos\\EstanteMania.Web\\wwwroot\\blzshopping3.jpg",
+      "PackagePath": "staticwebassets\\blzshopping3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\edmyl\\source\\repos\\EstanteMania.Web\\wwwroot\\css\\app.css",
+      "PackagePath": "staticwebassets\\css\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\edmyl\\source\\repos\\EstanteMania.Web\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\edmyl\\source\\repos\\EstanteMania.Web\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\edmyl\\source\\repos\\EstanteMania.Web\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "C:\\Users\\edmyl\\source\\repos\\EstanteMania.Web\\wwwroot\\icon-192.png",
+      "PackagePath": "staticwebassets\\icon-192.png"
+    },
+    {
+      "Id": "C:\\Users\\edmyl\\source\\repos\\EstanteMania.Web\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\edmyl\\source\\repos\\EstanteMania.Web\\wwwroot\\sample-data\\weather.json",
+      "PackagePath": "staticwebassets\\sample-data\\weather.json"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.EstanteMania.Web.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.EstanteMania.Web.props",
+      "PackagePath": "build\\EstanteMania.Web.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.EstanteMania.Web.props",
+      "PackagePath": "buildMultiTargeting\\EstanteMania.Web.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.EstanteMania.Web.props",
+      "PackagePath": "buildTransitive\\EstanteMania.Web.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

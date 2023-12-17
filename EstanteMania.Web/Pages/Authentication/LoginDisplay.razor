@@ -1,0 +1,15 @@
+﻿@using System.Security.Claims;
+
+<AuthorizeView>
+    <Authorized>
+        @context.User.Claims.FirstOrDefault()!.Value
+        <a href="logout">Log out</a>
+
+        <div class="top-row px-4">
+            <MenuCart></MenuCart>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <a href="login">Log in</a>
+    </NotAuthorized>
+</AuthorizeView>

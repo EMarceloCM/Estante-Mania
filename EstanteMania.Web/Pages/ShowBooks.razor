@@ -1,0 +1,19 @@
+﻿@foreach (var item in Books)
+{
+    <div class="col-md-3 mb-2">
+        <a href="/bookdetail/@item.Id">
+            <div class="card">
+                <img class="img-thumbnail" src="@item.CoverImg" />
+                <div class="card-body">
+                    <h5 class="card-title mb-3">
+                        @item.Price.ToString("c")
+                    </h5>
+                </div>
+            </div>
+        </a>
+    </div>
+}
+
+@code {
+    [Parameter] public IEnumerable<BookDTO>? Books { get; set; }
+}

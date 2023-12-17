@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EstanteMania.Web", "EstanteMania.Web.csproj", "{368FE952-F084-4C59-B150-DEF27C6A3CAE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{81B1D1B9-A18E-47D7-A9CB-2D2F0E66AFBF} = {81B1D1B9-A18E-47D7-A9CB-2D2F0E66AFBF}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EstanteMania.Web.Models", "..\EstanteMania.Web.Models\EstanteMania.Web.Models.csproj", "{81B1D1B9-A18E-47D7-A9CB-2D2F0E66AFBF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{368FE952-F084-4C59-B150-DEF27C6A3CAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{368FE952-F084-4C59-B150-DEF27C6A3CAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{368FE952-F084-4C59-B150-DEF27C6A3CAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{368FE952-F084-4C59-B150-DEF27C6A3CAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81B1D1B9-A18E-47D7-A9CB-2D2F0E66AFBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81B1D1B9-A18E-47D7-A9CB-2D2F0E66AFBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81B1D1B9-A18E-47D7-A9CB-2D2F0E66AFBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81B1D1B9-A18E-47D7-A9CB-2D2F0E66AFBF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E73D5C96-94E2-4B53-BF73-578631343BC8}
+	EndGlobalSection
+EndGlobal

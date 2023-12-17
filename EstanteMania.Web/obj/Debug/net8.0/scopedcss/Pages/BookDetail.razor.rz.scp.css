@@ -1,0 +1,154 @@
+/* Reset de estilos para garantir consistência entre navegadores */
+*[b-7evah1q7l0] {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body[b-7evah1q7l0] {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.container[b-7evah1q7l0] {
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+h3[b-7evah1q7l0] {
+    color: #007bff;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.row[b-7evah1q7l0] {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.col-md-3[b-7evah1q7l0] {
+    flex: 0 0 30%;
+    margin-right: 30px;
+}
+
+.col-md-9[b-7evah1q7l0] {
+    flex: 0 0 65%;
+}
+
+.figure-img[b-7evah1q7l0] {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.col-md-9 p[b-7evah1q7l0] {
+    margin-bottom: 15px;
+}
+
+.btn-success[b-7evah1q7l0] {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+    .btn-success:hover[b-7evah1q7l0] {
+        background-color: #218838;
+    }
+
+/* Adicionando sombras sutis para uma aparência tridimensional */
+.card[b-7evah1q7l0] {
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Adicionando bordas arredondadas para uma aparência suave */
+.rounded[b-7evah1q7l0] {
+    border-radius: 8px;
+}
+
+/* Adicionando um pouco de espaçamento interno para melhor leitura */
+.mb-3[b-7evah1q7l0] {
+    margin-bottom: 15px;
+}
+
+/* Adicionando um pouco de espaçamento interno para melhor leitura */
+.mb-5[b-7evah1q7l0] {
+    margin-bottom: 30px;
+}
+
+/* Adicionando bordas arredondadas para imagens */
+.rounded-img[b-7evah1q7l0] {
+    border-radius: 8px;
+}
+
+/* Adicionando uma cor de fundo mais suave para realçar a área de detalhes */
+.bg-light[b-7evah1q7l0] {
+    background-color: #f8f9fa;
+}
+
+/* Adicionando uma borda inferior às cabeçalhos das seções */
+.section-header[b-7evah1q7l0] {
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Adicionando estilo à barra de navegação */
+.navbar[b-7evah1q7l0] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.navbar-brand[b-7evah1q7l0] {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Alterando a cor do link no estado ativo */
+.navbar-nav .nav-item.active .nav-link[b-7evah1q7l0] {
+    color: #28a745;
+}
+
+/* Adicionando uma sombra sutil ao navbar para distingui-lo do conteúdo */
+.navbar[b-7evah1q7l0] {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Adicionando algum espaçamento inferior para melhorar a legibilidade */
+.navbar-nav .nav-item[b-7evah1q7l0] {
+    margin-bottom: 5px;
+}
+
+/* Alterando a cor do texto do link no estado ativo */
+.navbar-nav .nav-link[b-7evah1q7l0] {
+    color: #fff;
+}
+
+/* Estilo para mensagens de erro */
+.error-message[b-7evah1q7l0] {
+    color: #dc3545;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Adicionando um espaçamento inferior para os botões */
+.btn[b-7evah1q7l0] {
+    margin-top: 10px;
+}
+
+/* Adicionando um espaçamento inferior para os textos */
+p[b-7evah1q7l0] {
+    margin-bottom: 10px;
+}

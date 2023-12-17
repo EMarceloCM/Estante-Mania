@@ -1,0 +1,61 @@
+﻿@page "/books"
+@inject IBookService bookService
+@inject ICategoryService categoryService
+
+@if (Books == null)
+{
+    <Spinner></Spinner>
+}
+else
+{
+    <h3 class="mb-5">Livros</h3>
+    @if (Books.Count() > 0)
+    {
+        @foreach (var category in CategoriesWBooks!)
+        {
+            <h4>@category.Category!.Name</h4>
+
+            <div class="row mt-3">
+                <ShowBooks Books="@category.Books"></ShowBooks>
+            </div>
+            <hr class="mb-2" />
+        }
+    }
+}
+
+@code {
+    [Inject] public ICartService? cartService { get; set; }
+    public IEnumerable<BookDTO>? Books { get; set; }
+    public IEnumerable<CategoryWithBooksDTO>? CategoriesWBooks { get; set; }
+    public string? ErrorMessage;
+
+    [Inject] public IBookLocalStorage? bookLocalStorage { get; set; }
+    [Inject] public ICartItensLocalStorage? cartItensLocalStorage { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            await ClearLocalStorage();
+
+            Books = await bookLocalStorage.GetCollection();
+            CategoriesWBooks = await categoryService.GetAllCategoriesWithBooksAsync();
+
+            var shopCartItens = await cartItensLocalStorage.GetCollection();
+
+            var totalQuantity = shopCartItens.Sum(x => x.Quantidade);
+
+            cartService.RaiseEventOnShopCartChanged(totalQuantity);
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = ex.Message;
+        }
+    }
+
+    private async Task ClearLocalStorage()
+    {
+        await bookLocalStorage.RemoveCollection();
+        await cartItensLocalStorage.RemoveCollection();
+    }
+}

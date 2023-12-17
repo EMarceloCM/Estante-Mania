@@ -1,0 +1,149 @@
+﻿@page "/checkout"
+@using EstanteMania.API.DTO_s
+@using EstanteMania.Web.Models.DTO_s
+@using System.Text.Json
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<div>
+    <span style="font-size: 25px;" class="text-warning">Preencha o Formulário para Compra:</span>
+</div>
+<div class="border mt-2">
+    <div class="container row">
+        <div class="col-7">
+            <div class="row">
+                <div class="col-12">
+                    <label class="col-form-label">Nome:</label>
+                    <input class="form-control" @bind="@cartHeader.Name" required />
+                </div>
+                <div class="col-12">
+                    <label class="col-form-label">Endereço:</label>
+                    <input class="form-control" @bind="@cartHeader.Address" required />
+                </div>
+                <div class="col-12">
+                    <label class="col-form-label">E-mail:</label>
+                    <input class="form-control" @bind="@cartHeader.Email" required />
+                </div>
+                <div class="col-12">
+                    <label class="col-form-label">Telefone:</label>
+                    <input class="form-control" @bind="@cartHeader.Phone" required />
+                </div>
+                <div class="col-12">
+                    <label class="col-form-label">Nº do Cartão:</label>
+                    <input class="form-control" @bind="@cartHeader.CardNumber" required />
+                </div>
+                <div class="col-12">
+                    <label class="col-form-label">CVV:</label>
+                    <input class="form-control" @bind="@cartHeader.CVV" required />
+                </div>
+                <div class="col-12 pb-4">
+                    <label class="col-form-label">Expiração:</label>
+                    <input class="form-control" placeholder="MMYY" @bind="@cartHeader.ExpiryMonthYear" required />
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <div class="d-none d-lg-block">
+                        <div class="row text-danger">
+                            <div class="col-6">
+                                Detalhes do Produto
+                            </div>
+                            <div class="col-3">
+                                Preço
+                            </div>
+                            <div class="col-3">
+                                Quantidade
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr />
+
+                    @foreach (var item in shopCartItens)
+                    {
+                        <div class="row h-100">
+                            <div class="col-6">
+                                <span style="font-size:20px;">@item.BookName</span>
+                            </div>
+                            <div class="col-3">
+                                <span style="font-size:17px;">@item.Price.ToString("C")</span>
+                            </div>
+                            <div class="col-3">
+                                <span style="font-size:17px;">@item.Quantidade</span>
+                            </div>
+                        </div>
+                        <hr />
+                    }
+                    <div class="row">
+                        <div class="col-12 text-right pr-4 text-danger">
+                            Valor da Compra: @priceWithDiscount.ToString("C")
+                            @if (couponDTO.Discount > 0)
+                            {
+                                <br />
+                                <span class="text-success">
+                                    Valor do Desconto: @couponDTO.Discount.ToString("C")
+                                </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-success form-control" @onclick="() => CheckoutCart()">
+                                <span>Place Order</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public List<CarrinhoItemDTO> shopCartItens { get; set; }
+    [Parameter] public decimal priceWithDiscount { get; set; }
+    [Parameter] public CouponDTO couponDTO { get; set; }
+    [Inject] public ICartService cartService { get; set; }
+    CartHeaderDTO cartHeader = new();
+
+    protected override void OnInitialized()
+    {
+        var uri = new Uri(NavigationManager.Uri);
+        var queryParams = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+        if (queryParams.HasKeys())
+        {
+            shopCartItens = JsonSerializer.Deserialize<List<CarrinhoItemDTO>>(queryParams["shopCartItens"]);
+            priceWithDiscount = decimal.Parse(queryParams["priceWithDiscount"]);
+            couponDTO = JsonSerializer.Deserialize<CouponDTO>(queryParams["couponDTO"]);
+            if (couponDTO == null)
+                couponDTO = new();
+        }
+    }
+
+    protected async void CheckoutCart()
+    {
+        if (couponDTO != null && !string.IsNullOrEmpty(couponDTO.Code))
+            cartHeader.CouponCode = couponDTO.Code;
+        else
+            cartHeader.CouponCode = "";
+        cartHeader.TotalAmount = priceWithDiscount;
+        cartHeader.DiscountAmount = couponDTO.Discount;
+        cartHeader.CartTotalItens = shopCartItens.Sum(x => x.Quantidade);
+        cartHeader.CartDetails = shopCartItens;
+
+        var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authenticationState.User;
+
+        cartHeader.UserId = user.FindFirst("unique_name")?.Value!;
+        cartHeader.cartId = await cartService.GetCartId(cartHeader.UserId);
+
+        cartHeader = await cartService.Checkout(cartHeader);
+
+        NavigationManager.NavigateTo("confirmation");
+    }
+}

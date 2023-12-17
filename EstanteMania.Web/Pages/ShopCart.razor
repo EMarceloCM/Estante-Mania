@@ -1,0 +1,324 @@
+﻿@page "/shopcart"
+@using EstanteMania.API.DTO_s
+@using System.Security.Claims
+@using EstanteMania.Web.Models.DTO_s
+@using System.Text.Json
+@inject IJSRuntime js
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@attribute [Authorize]
+
+@if (shopCartItens == null && ErrorMessage == null)
+{
+    <Spinner />
+}
+else if (ErrorMessage != null)
+{
+    <ShowError ErrorMessage="ErrorMessage" />
+}
+else
+{
+    <h3 class="mb-5">Carrinho</h3>
+    @if (shopCartItens.Count() > 0)
+    {
+        <div class="row mb-5">
+            <div class="col-md-9">
+                @foreach (var item in shopCartItens)
+                {
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <img src="@item.BookCoverImage" width="250" class="img-thumbnail" />
+                        </div>
+                        <div class="col-md-9">
+                            <h5>@item.BookName</h5>
+                            <div class="mb-4">
+                                @item.BookDescricao
+                            </div>
+                            <span>Preço: <b>@item.Price.ToString("C")</b></span>
+                            <input @oninput="() => UpdateQuantity_Input(item.Id)" type="number" @bind="@item.Quantidade" />
+                            <button data-itemId="@item.Id" class="btn btn-info btn-sm updatequantity" @onclick="() => UpdateQuantityOnCart_Click(item.Id, item.Quantidade)">
+                                <span class="bi bi-check"></span>
+                            </button>
+                            <br /><br />
+                            <button class="btn btn-danger sm" @onclick="() => DeleteCartItem_Click(item.Id)"><span class="bi bi-trash"></span></button>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-md-3">
+                <h5>Carrinho - Resumo</h5>
+                <hr />
+                @if (!isCouponValid)
+                {
+                    <div class="mt-2">
+                        <div class="row">
+                            <div class="col">
+                                <span style="font-weight:normal">
+                                    Cupom: <input type="text" class="form-control" @bind="@couponDTO.Code" />
+                                </span>
+                            </div>
+                            <div class="col">
+                                <br />
+                                <button class="btn btn-info btn-sm" @onclick="() => SetCoupon()"><span class="bi bi-check"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="mt-2">
+                        <span style="font-weight:normal">
+                            Desconto: <b>@couponDTO!.Discount.ToString("C")</b>
+                            <button class="btn btn-danger btn-sm" @onclick="() => RemoveCoupon()">Remover</button>
+                        </span>
+                    </div>
+                }
+                <h6 style="color:red;">@CouponErrorMessage</h6>
+                <hr />
+                <div class="mt-2">
+                    <div>Total - (@TotalQuantity items)&nbsp;<br />
+                        @if (isCouponValid)
+                        {
+                            <p>De <del>@TotalPrice</del> por <b>@priceWithDiscount.ToString("C")</b></p>
+                        }else
+                        {
+                            <b>@TotalPrice</b>
+                        }
+                    </div>
+                    <br />
+                    <a href="@($"checkout?shopCartItens={Uri.EscapeDataString(JsonSerializer.Serialize(shopCartItens))}&priceWithDiscount={Uri.EscapeDataString(priceWithDiscount.ToString())}&couponDTO={Uri.EscapeDataString(JsonSerializer.Serialize(couponDTO))}")" class="btn btn-success">
+                        <span class="bi bi-credit-card"></span>&nbsp; Concluir Pedido
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div>
+            <h3><b>Carrinho Vazio!</b></h3>
+        </div>
+    }
+}
+
+@code {
+    [Inject] public ICartService cartService { get; set; }
+    [Inject] public ICartItensLocalStorage? cartItensLocalStorage { get; set; }
+    [Inject] public ICouponService couponService { get; set; }
+    public List<CarrinhoItemDTO> shopCartItens { get; set; }
+    public CouponDTO couponDTO { get; set; } = new();
+    public string? ErrorMessage { get; set; }
+    public string CouponErrorMessage { get; set; } = "";
+    protected string? TotalPrice { get; set; }
+    protected int TotalQuantity { get; set; }
+    private decimal priceWithDiscount { get; set; }
+
+    private string? userId;
+    private bool isCouponValid = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authenticationState.User;
+
+            foreach (var claim in user.Claims)
+            {
+                Console.WriteLine($"Claim Type: {claim.Type}, Claim Value: {claim.Value}");
+            }
+
+            if (user.Identity!.IsAuthenticated)
+            {
+                userId = user.FindFirst("unique_name")?.Value;
+
+                shopCartItens = await cartService.GetItens(userId);
+                CartChanged();
+                GetCouponForUser();
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = ex.Message;
+        }
+    }
+
+    protected async Task DeleteCartItem_Click(int id)
+    {
+        var cartItemDTO = await cartService.Delete(id);
+
+        //tirar da memória do cliente
+        await RemoveCartItem(id);
+    }
+
+    private CarrinhoItemDTO GetCartItem(int id)
+    {
+        return shopCartItens.FirstOrDefault(x => x.Id == id);
+    }
+
+    private async Task RemoveCartItem(int id)
+    {
+        var cartItemDTO = GetCartItem(id);
+        shopCartItens.Remove(cartItemDTO);
+        CartChanged();
+
+        await cartItensLocalStorage.SaveCollection(shopCartItens);
+    }
+
+    private async Task UpdateQuantityOnCart_Click(int id, int quantity)
+    {
+        try
+        {
+            if (quantity > 0)
+            {
+                var updateItemDTO = new UpdateBookQuantityOnCartDTO
+                {
+                    CarrinhoItemId = id,
+                    Quantidade = quantity
+                };
+                var returnUpdatedItemDTO = await cartService.UpdateQuantity(updateItemDTO);
+
+                UpdateTotalItemValue(returnUpdatedItemDTO);
+                CartChanged();
+                await js.InvokeVoidAsync("SetButtonVisible", id, false);
+            }
+            else
+            {
+                var item = shopCartItens.FirstOrDefault(x => x.Id == id);
+                if (item != null)
+                {
+                    item.Quantidade = 1;
+                    item.TotalPrice = item.Price;
+                }
+            }
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+    }
+
+    private void SetTotalPrice()
+    {
+        TotalPrice = shopCartItens.Sum(x => x.TotalPrice).ToString("C");
+    }
+
+    private void SetTotalQuantity()
+    {
+        TotalQuantity = shopCartItens.Sum(x => x.Quantidade);
+    }
+
+    private void SetPriceWithDiscount()
+    {
+        priceWithDiscount = shopCartItens.Sum(x => x.TotalPrice) - couponDTO.Discount;
+    }
+
+    private void UpdateTotalValueOnCart()
+    {
+        SetTotalPrice();
+        SetTotalQuantity();
+        SetPriceWithDiscount();
+    }
+
+    private async Task UpdateTotalItemValue(CarrinhoItemDTO carrinhoItemDTO)
+    {
+        var item = GetCartItem(carrinhoItemDTO.Id);
+
+        if (item != null)
+            item.TotalPrice = carrinhoItemDTO.Price * carrinhoItemDTO.Quantidade;
+
+        await cartItensLocalStorage.SaveCollection(shopCartItens);
+    }
+
+    protected async Task UpdateQuantity_Input(int id)
+    {
+        await js.InvokeVoidAsync("SetButtonVisible", id, true);
+    }
+
+    private void CartChanged()
+    {
+        UpdateTotalValueOnCart();
+        cartService.RaiseEventOnShopCartChanged(TotalQuantity);
+    }
+
+    protected async void SetCoupon()
+    {
+        if (!string.IsNullOrWhiteSpace(couponDTO.Code) || !string.IsNullOrEmpty(couponDTO.Code))
+        {
+            await GetCouponByCode(couponDTO.Code);
+
+            if (couponDTO != null)
+            {
+                if (await ApplyCoupon())
+                {
+                    isCouponValid = true;
+                    CouponErrorMessage = "";
+
+                    SetPriceWithDiscount();
+                    StateHasChanged();
+                }
+                else
+                {
+                    CouponErrorMessage = "Cupom não encontrado.";
+                }
+            }
+            else
+            {
+                couponDTO = new();
+                CouponErrorMessage = "Cupom não encontrado.";
+                StateHasChanged();
+            }
+        }
+    }
+
+    protected async void RemoveCoupon()
+    {
+        isCouponValid = false;
+        couponDTO.Discount = 0;
+        couponDTO.Code = "";
+
+        await cartService.DeleteCouponAsync(userId);
+        StateHasChanged();
+    }
+
+    private async Task GetCouponByCode(string couponCode)
+    {
+        couponDTO = await couponService.GetCouponByCode(couponCode);
+    }
+
+    private async Task<bool> ApplyCoupon()
+    {
+        UserCoupon userCoupon = new()
+        {
+            CouponCode = couponDTO!.Code,
+            UserId = userId
+        };
+
+        return await cartService.ApplyCouponAsync(userCoupon);
+    }
+
+    protected async void GetCouponForUser()
+    {
+        var code = await cartService.GetCouponFromUserAsync(userId);
+
+        if (!string.IsNullOrEmpty(code))
+        {
+            Console.WriteLine(code);
+            couponDTO.Code = code;
+            await GetCouponByCode(code);
+
+            if (couponDTO != null)
+            {
+                isCouponValid = true;
+                CouponErrorMessage = "";
+
+                SetPriceWithDiscount();
+                StateHasChanged();
+            }
+            else
+            {
+                couponDTO = new();
+            }
+        }
+    }
+}
