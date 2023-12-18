@@ -13,9 +13,9 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddHttpClient("EstanteManiaApi", options => options.BaseAddress = new Uri("https://localhost:7146/"))
+builder.Services.AddHttpClient("EstanteManiaApi", options => options.BaseAddress = new Uri("https://localhost:7146/"))//4480 Ocelot
     .AddHttpMessageHandler<CustomHttpHandler>();
-builder.Services.AddHttpClient("EstanteManiaCouponApi", options => options.BaseAddress = new Uri("https://localhost:7012"))
+builder.Services.AddHttpClient("EstanteManiaCouponApi", options => options.BaseAddress = new Uri("https://localhost:7012"))//4480 Ocelot
     .AddHttpMessageHandler<CustomHttpHandler>();
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddAuthorizationCore();

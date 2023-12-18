@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "EstanteMania.Web",
   "resources": {
-    "hash": "sha256-N8/lhvlg/Jbn7kzi50XhYyNiuwQF0UgA2VJb0aQ2oPU=",
+    "hash": "sha256-/k7y59FaDh22Dy3HSiYD5fDVXOoVIMDWgESFMklKKII=",
     "jsModuleNative": {
       "dotnet.native.8.0.0.3h6xlvs5l0.js": "sha256-LjLDIz9+J7uuiwMlQ4HbNx2BnSpphOtO2MwkoI28vdI="
     },
@@ -215,12 +215,12 @@
       "mscorlib.wasm": "sha256-cDuLeL3OCtVtiid/dyex1MVgbuzDSRwZxKzuP2Dp4mg=",
       "netstandard.wasm": "sha256-A0h86SDieTMoU/wU2JTszWCsUmMuguDcbap0b0BzsmI=",
       "System.Private.CoreLib.wasm": "sha256-/0DNIm/T0C07X7Tuz5uR8JvVCoAfEE2MnfPUSjyS9xc=",
-      "EstanteMania.Web.Models.wasm": "sha256-xhxj3Wlp7VNm1hvcL4Xh44y8MPeVCRGzeqjCJB+6dAg=",
-      "EstanteMania.Web.wasm": "sha256-a4uGvOE+ZL6R+byigGMr4Mjoq+Hpv7IbGxf0ki2V+Fc="
+      "EstanteMania.Web.Models.wasm": "sha256-YQCE7Uv5OW613xwI/mU4jPzh8QYZ45JSY7yWxJW/l/o=",
+      "EstanteMania.Web.wasm": "sha256-LC7TNnlEFcjxPy7W4QpMyincOjm05RS8EWSCJOruijs="
     },
     "pdb": {
-      "EstanteMania.Web.Models.pdb": "sha256-EAXoS7K4AiG3WCnBhEpkIaC8rh+OHWyE2sz0LyuIpws=",
-      "EstanteMania.Web.pdb": "sha256-srK3IpgV4zjgq2I1Iv5WQaYPbwcIB3gOMdOOQhsMmvI="
+      "EstanteMania.Web.Models.pdb": "sha256-PxWCuoOqiDMgeugltvmqkPQ1xvitGfjsE1cLiWna8/Q=",
+      "EstanteMania.Web.pdb": "sha256-knwuCmRso+umfaoHsAzcRuK1g/4z/7xWqZEYHmrW3yo="
     }
   },
   "cacheBootResources": true,
